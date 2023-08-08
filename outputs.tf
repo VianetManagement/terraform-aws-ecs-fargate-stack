@@ -78,6 +78,11 @@ output "database_address" {
   value       = length(aws_db_instance.this) >= 1 ? aws_db_instance.this[0].address : null
 }
 
+output "database" {
+  description = "The database instance."
+  value       = length(aws_db_instance.this) >= 1 ? aws_db_instance.this[0] : null
+}
+
 output "es_endpoint" {
   description = "ElasticSearch domain-specific endpoint used to submit index, search, and data upload requests."
   value       = var.use_elasticsearch == true ? aws_elasticsearch_domain.this[0].domain_name : null
