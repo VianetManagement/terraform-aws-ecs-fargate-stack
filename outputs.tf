@@ -48,6 +48,11 @@ output "database_endpoint_reader" {
   value       = length(aws_rds_cluster_instance.this) >= 1 ? aws_rds_cluster.this[0].reader_endpoint : null
 }
 
+output "database_cluster" {
+  description = "The database cluster."
+  value       = length(aws_rds_cluster.this) >= 1 ? aws_rds_cluster.this[0] : null
+}
+
 output "redis_security_group" {
   description = "Redis SecurityGroup ID."
   value       = var.use_redis == true ? aws_security_group.redis[0].id : null
@@ -80,7 +85,7 @@ output "database_address" {
 
 output "database" {
   description = "The database instance."
-  value       = length(aws_db_instance.this) >= 1 ? aws_db_instance.this[0] : null
+  value       = length(aws_db_instance.this) >= 1 ? aws_db_instance.this[0] : length(aws_rds_cluster_instance.this) >= 1 ? aws_rds_cluster_instance.this[0] : null
 }
 
 output "es_endpoint" {
